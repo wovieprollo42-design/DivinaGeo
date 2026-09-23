@@ -791,53 +791,127 @@ p:last-child { margin-bottom: 0; }
 /* ---------- Timeline ---------- */
 
 .timeline {
+  position: relative;
   list-style: none;
   margin: 0;
-  padding: 0;
-}
-
-.job {
+  padding: 0 0 0 40px;
   display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: clamp(20px, 4vw, 56px);
-  padding: 34px 0;
-  border-top: 1px solid var(--line-soft);
+  gap: 18px;
 }
-.job:last-child { border-bottom: 1px solid var(--line-soft); }
 
-.job__when {
+/* The spine. Fades out at the bottom so the run of roles reads as a
+   history rather than a list that got cut off. */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    var(--violet),
+    rgba(169, 133, 255, 0.22) 62%,
+    transparent
+  );
+}
+
+.job { position: relative; }
+
+.job__node {
+  position: absolute;
+  left: -40px;
+  top: 34px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 2px solid var(--violet);
+  transition: box-shadow 0.25s ease;
+}
+.job:hover .job__node { box-shadow: 0 0 0 5px rgba(169, 133, 255, 0.14); }
+
+.job__card {
+  padding: 26px 28px 28px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--panel), var(--ink-2));
+  transition: border-color 0.22s ease;
+}
+.job:hover .job__card { border-color: rgba(169, 133, 255, 0.3); }
+
+.job__head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.job__logo {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+}
+.job__logo img {
+  width: 46px;
+  height: 26px;
+  object-fit: contain;
+  opacity: 0.9;
+}
+/* Stand-in for a company with no logo on file */
+.job__mono {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  color: var(--violet);
+}
+
+.job__id h3 { font-size: 1.1rem; margin-bottom: 5px; }
+.job__org {
+  margin: 0;
+  color: var(--violet);
+  font-size: 0.9rem;
+}
+
+.job__meta {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding-top: 4px;
+  align-items: flex-end;
+  gap: 3px;
+  text-align: right;
 }
 .job__date {
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   color: var(--champagne);
-  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
-.job__place { font-size: 0.82rem; color: var(--muted-2); }
-
-.job__org {
-  margin: 6px 0 14px;
-  color: var(--violet);
-  font-size: 0.93rem;
+.job__place {
+  font-size: 0.78rem;
+  color: var(--muted-2);
+  white-space: nowrap;
 }
 
-.job__what ul {
+.job__card ul {
   margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
   gap: 9px;
 }
-.job__what li {
+.job__card ul li {
   position: relative;
   padding-left: 20px;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.94rem;
 }
-.job__what li::before {
+.job__card ul li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -1034,8 +1108,20 @@ p:last-child { margin-bottom: 0; }
   .stats dt { font-size: 1.4rem; }
   .stats dd { font-size: 0.75rem; }
 
-  .job { grid-template-columns: 1fr; gap: 14px; }
-  .job__when { flex-direction: row; gap: 12px; align-items: baseline; }
+  /* The head drops to two rows so the dates stop squeezing the title */
+  .timeline { padding-left: 26px; }
+  .job__node { left: -26px; top: 28px; width: 13px; height: 13px; }
+  .job__card { padding: 22px 20px 24px; }
+  .job__head { grid-template-columns: auto 1fr; gap: 14px; }
+  .job__meta {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+    text-align: left;
+  }
+  .job__place { white-space: normal; }
+  .job__id h3 { font-size: 1.02rem; }
 
   .about__facts { grid-template-columns: 1fr; }
   .contact__list li { flex-direction: column; gap: 4px; }
