@@ -3,28 +3,47 @@
 (function () {
   "use strict";
 
-  /* ---- Tools marquee ---- */
+  /* ---- Tools marquee ----
+     Logos live in images/tools/, all normalised to 80x80 on white.
+     To drop a tool, delete its line. To add one, add the logo to that
+     folder the same size and add a line here. */
   var TOOLS = [
-    "Google Workspace",
-    "Microsoft Office",
-    "Go High Level",
-    "Trello",
-    "Calendly",
-    "Slack",
-    "Zoom",
-    "Canva",
-    "ChatGPT",
-    "Claude AI",
-    "LinkedIn",
-    "Google Sheets"
+    { name: "Google Workspace", file: "google-workspace.png" },
+    { name: "Google Sheets", file: "google-sheets.png" },
+    { name: "Microsoft Office", file: "microsoft.png" },
+    { name: "Go High Level", file: "ghl.png" },
+    { name: "HubSpot", file: "hubspot.png" },
+    { name: "Trello", file: "trello.png" },
+    { name: "Calendly", file: "calendly.png" },
+    { name: "Slack", file: "slack.png" },
+    { name: "Zoom", file: "zoom.png" },
+    { name: "Telegram", file: "telegram.png" },
+    { name: "Shortwave", file: "shortwave.png" },
+    { name: "Dropbox", file: "dropbox.png" },
+    { name: "Canva", file: "canva.png" },
+    { name: "Photoshop", file: "photoshop.png" },
+    { name: "CapCut", file: "capcut.png" },
+    { name: "ChatGPT", file: "chatgpt.png" },
+    { name: "Claude", file: "claude.png" },
+    { name: "LinkedIn", file: "linkedin.png" },
+    { name: "Meta", file: "meta.png" },
+    { name: "WordPress", file: "wordpress.png" }
   ];
 
   document.querySelectorAll("[data-row]").forEach(function (row) {
-    TOOLS.forEach(function (name) {
+    TOOLS.forEach(function (tool) {
       var li = document.createElement("li");
-      var dot = document.createElement("b");
-      li.appendChild(dot);
-      li.appendChild(document.createTextNode(name));
+      var img = document.createElement("img");
+
+      img.src = "images/tools/" + tool.file;
+      img.width = 24;
+      img.height = 24;
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.alt = ""; /* the tool name sits right beside it */
+
+      li.appendChild(img);
+      li.appendChild(document.createTextNode(tool.name));
       row.appendChild(li);
     });
   });

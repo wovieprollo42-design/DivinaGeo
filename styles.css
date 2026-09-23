@@ -461,7 +461,7 @@ p:last-child { margin-bottom: 0; }
   display: flex;
   width: max-content;
   gap: 14px;
-  animation: slide 34s linear infinite;
+  animation: slide 58s linear infinite;
 }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 
@@ -484,12 +484,14 @@ p:last-child { margin-bottom: 0; }
   font-size: 0.92rem;
   color: var(--muted);
 }
-.marquee__row li b {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--violet);
-  opacity: 0.75;
+/* Logos arrive as 80x80 artwork on white, so the tile is the image itself */
+.marquee__row li img {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  border-radius: 6px;
+  object-fit: contain;
+  background: #fff;
 }
 
 @keyframes slide {
