@@ -8,11 +8,12 @@ Static one-page portfolio. No build step, no dependencies.
 - `styles.css` — full design system (colors, type, layout, responsive)
 - `script.js` — tools marquee, mobile menu, sticky nav, scroll reveal
 - `images/` — portrait (webp + jpg) and favicon
+- `divina-gio-resume.pdf` — downloadable resume, linked from the hero
 
 ## Preview locally
 
 ```
-npx serve divina-gio-portfolio
+npx serve .
 ```
 
 Or just open `index.html` in a browser.
@@ -37,4 +38,13 @@ npx vercel deploy --prod
 | Work history | `index.html` — `#experience` |
 | Education | `index.html` — `#education` |
 | Email / phone / LinkedIn | `index.html` — `#contact` (and the JSON-LD block in `<head>`) |
+| Resume PDF | replace `divina-gio-resume.pdf`, keeping the filename |
+| Booking calendar | `index.html` — the `data-url` on `.calendly-inline-widget` |
 | Colors | `styles.css` — `:root` variables |
+
+## One thing not to do
+
+Do not set the height of `.calendly-inline-widget` from JavaScript. Calendly's
+`widget.js` already resizes that element, and a second writer racing it collapses
+the embed to zero height. The CSS height is only the placeholder shown before the
+iframe loads.
