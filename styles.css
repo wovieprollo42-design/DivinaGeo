@@ -170,7 +170,14 @@ p:last-child { margin-bottom: 0; }
   background: rgba(8, 7, 13, 0.72);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid transparent;
-  transition: border-color 0.25s ease, background 0.25s ease;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.3s ease;
+}
+
+/* Slides out of the way once Contact reaches the top, so the bar never
+   sits over the booking calendar. script.js adds and removes this. */
+.nav--away {
+  transform: translateY(-100%);
+  pointer-events: none;
 }
 .nav.is-stuck {
   border-bottom-color: var(--line-soft);
@@ -1041,6 +1048,9 @@ p:last-child { margin-bottom: 0; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .marquee__track { animation: none; }
+  /* Snap rather than slide. The bar must still get out of the way, so
+     .nav--away keeps its transform. */
+  .nav { transition: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .btn:hover, .card:hover { transform: none; }
 }

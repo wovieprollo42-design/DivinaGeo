@@ -48,13 +48,27 @@
     });
   });
 
-  /* ---- Sticky nav border ---- */
+  /* ---- Sticky nav ----
+     The bar follows you down the page, but it stops at Contact: the
+     booking calendar needs its full height and the bar was sitting on
+     top of it. Scroll back up and the bar returns. */
   var nav = document.getElementById("nav");
+  var contact = document.getElementById("contact");
+
   var onScroll = function () {
     nav.classList.toggle("is-stuck", window.scrollY > 12);
+
+    if (!contact) return;
+    /* toggle is assigned further down, so guard the first call */
+    if (toggle && toggle.getAttribute("aria-expanded") === "true") return;
+
+    var reachedContact = contact.getBoundingClientRect().top <= nav.offsetHeight;
+    nav.classList.toggle("nav--away", reachedContact);
   };
+
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
 
   /* ---- Mobile menu ---- */
   var toggle = document.getElementById("navToggle");
