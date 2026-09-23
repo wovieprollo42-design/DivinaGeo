@@ -11,8 +11,8 @@
   --line-soft: rgba(255, 255, 255, 0.055);
 
   --text: #f4f2f8;
-  --muted: #9b95ad;
-  --muted-2: #726c84;
+  --muted: #9b95ad;      /* 6.97:1 on --ink */
+  --muted-2: #8f88a3;    /* 5.94:1 on --ink — small text still has to pass AA */
 
   --violet: #a985ff;
   --violet-deep: #6b3fd4;
@@ -605,16 +605,11 @@ p:last-child { margin-bottom: 0; }
   align-items: start;
 }
 
-.contact__cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 2.2rem;
-}
+.contact__intro .sub { margin-top: 1.4rem; }
 
 .contact__list {
   list-style: none;
-  margin: 0;
+  margin: 2.6rem 0 0;
   padding: 0;
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
@@ -680,11 +675,12 @@ p:last-child { margin-bottom: 0; }
   z-index: 2;
 }
 
+/* Tall enough that Calendly's month view never grows its own inner scrollbar */
 .calendly-inline-widget {
   position: relative;
   min-width: 280px;
   width: 100%;
-  height: 700px;
+  height: 940px;
 }
 
 /* Placeholder while the third-party script loads */
@@ -719,7 +715,7 @@ p:last-child { margin-bottom: 0; }
   font-size: 0.84rem;
   color: var(--muted-2);
 }
-.footer__note--dim { color: #57516a; }
+.footer__note--dim { color: #7d7691; } /* 4.63:1 on --ink */
 
 /* ---------- Reveal ---------- */
 
@@ -763,8 +759,8 @@ p:last-child { margin-bottom: 0; }
   .contact__list li { flex-direction: column; gap: 4px; }
 
   /* Calendly stacks its columns on narrow screens, so it needs more height */
-  .calendly-inline-widget { height: 1000px; }
-  .contact__cta .btn { flex: 1 1 100%; }
+  .calendly-inline-widget { height: 1120px; }
+  .contact__list { margin-top: 2rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
