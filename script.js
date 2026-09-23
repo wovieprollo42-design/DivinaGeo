@@ -88,6 +88,32 @@
     items.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---- Calendly: let the embed report its own height ----
+     Its content grows once a day is picked, so any fixed height is
+     either too short (inner scrollbar) or too tall (dead white space). */
+  var cal = document.getElementById("calendly");
+
+  if (cal) {
+    window.addEventListener("message", function (e) {
+      if (typeof e.origin !== "string" || e.origin.indexOf("calendly.com") === -1) return;
+
+      var data = e.data;
+      if (!data || data.event !== "calendly.page_height") return;
+
+      var height = parseInt(data.payload && data.payload.height, 10);
+      if (height > 0) cal.style.height = height + "px";
+    });
+
+    /* Fallback: if Calendly never reports a height, picking a day still
+       reveals the time slots, which need more room than the month view. */
+    window.addEventListener("message", function (e) {
+      if (typeof e.origin !== "string" || e.origin.indexOf("calendly.com") === -1) return;
+      if (!e.data || e.data.event !== "calendly.date_and_time_selected") return;
+
+      if (cal.offsetHeight < 780) cal.style.height = "780px";
+    });
+  }
+
   /* ---- Footer year ---- */
   var year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
