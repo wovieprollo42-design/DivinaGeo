@@ -499,6 +499,58 @@ p:last-child { margin-bottom: 0; }
   to { transform: translateX(calc(-50% - 7px)); }
 }
 
+/* ---------- Clients ---------- */
+
+.head--center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.head--center .sub { margin-inline: auto; }
+
+.clients__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.clients__grid > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Logos arrive as artwork on white, so the tile carries that white */
+.client__tile {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: 22px 26px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-soft);
+  background: #fff;
+  transition: border-color 0.22s ease, transform 0.22s ease;
+}
+.clients__grid > li:hover .client__tile {
+  border-color: rgba(169, 133, 255, 0.45);
+  transform: translateY(-3px);
+}
+.client__tile img {
+  width: 100%;
+  max-width: 210px;
+  height: auto;
+  object-fit: contain;
+}
+
+.client__name {
+  font-size: 0.83rem;
+  color: var(--muted-2);
+  text-align: center;
+}
+
 /* ---------- Service cards ---------- */
 
 .cards {
@@ -953,6 +1005,7 @@ p:last-child { margin-bottom: 0; }
   .hero__portrait { max-width: 440px; order: -1; }
   .about { grid-template-columns: 1fr; }
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .clients__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .projects { grid-template-columns: 1fr; }
   .creds { grid-template-columns: 1fr; }
   .contact__grid { grid-template-columns: 1fr; }
