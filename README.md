@@ -8,7 +8,7 @@ Static one-page portfolio. No build step, no dependencies.
 - `styles.css` — full design system (colors, type, layout, responsive)
 - `script.js` — tools marquee, mobile menu, sticky nav, scroll reveal
 - `images/` — portrait (webp + jpg) and favicon
-- `divina-gio-resume.pdf` — downloadable resume, linked from the hero
+- `divina-gio-resume.pdf` — resume, opened in a new tab from the hero
 
 ## Preview locally
 
