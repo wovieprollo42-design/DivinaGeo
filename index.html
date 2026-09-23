@@ -334,7 +334,7 @@
 <!-- ================= CONTACT ================= -->
 <section class="section contact" id="contact">
   <div class="shell contact__grid">
-    <div class="reveal">
+    <div class="contact__intro reveal">
       <p class="eyebrow">Contact</p>
       <h2>Let&rsquo;s take the <em>admin off your desk</em>.</h2>
       <p class="sub">
@@ -342,27 +342,54 @@
         Tell me what&rsquo;s currently eating your calendar and I&rsquo;ll come back with how I&rsquo;d
         take it over in week one.
       </p>
-      <a class="btn" href="mailto:divinagiofficial@gmail.com?subject=Executive%20Assistant%20Inquiry">Send an Email</a>
+
+      <div class="contact__cta">
+        <a class="btn" href="https://calendly.com/divinagiofficial/30min" target="_blank" rel="noopener">Book a 30-Minute Call</a>
+        <a class="btn btn--ghost" href="mailto:divinagiofficial@gmail.com?subject=Executive%20Assistant%20Inquiry">Send an Email</a>
+      </div>
+
+      <ul class="contact__list">
+        <li>
+          <span class="contact__label">Email</span>
+          <a href="mailto:divinagiofficial@gmail.com">divinagiofficial@gmail.com</a>
+        </li>
+        <li>
+          <span class="contact__label">Phone</span>
+          <a href="tel:+639109388369">+63 910 9388 369</a>
+        </li>
+        <li>
+          <span class="contact__label">LinkedIn</span>
+          <a href="https://bit.ly/4kyZVAl" target="_blank" rel="noopener">View profile</a>
+        </li>
+        <li>
+          <span class="contact__label">Availability</span>
+          <span>Remote &middot; Worldwide</span>
+        </li>
+      </ul>
     </div>
 
-    <ul class="contact__list reveal">
-      <li>
-        <span class="contact__label">Email</span>
-        <a href="mailto:divinagiofficial@gmail.com">divinagiofficial@gmail.com</a>
-      </li>
-      <li>
-        <span class="contact__label">Phone</span>
-        <a href="tel:+639109388369">+63 910 9388 369</a>
-      </li>
-      <li>
-        <span class="contact__label">LinkedIn</span>
-        <a href="https://bit.ly/4kyZVAl" target="_blank" rel="noopener">View profile</a>
-      </li>
-      <li>
-        <span class="contact__label">Availability</span>
-        <span>Remote &middot; Worldwide</span>
-      </li>
-    </ul>
+    <div class="booking">
+      <div class="booking__head reveal">
+        <p class="eyebrow">Discovery Call</p>
+        <h3>Pick a time that works for you.</h3>
+        <p>Thirty minutes, no pitch &mdash; just what you need covered and how I&rsquo;d take it on.</p>
+      </div>
+
+      <div class="booking__frame">
+        <div
+          class="calendly-inline-widget"
+          id="calendly"
+          data-url="https://calendly.com/divinagiofficial/30min?hide_gdpr_banner=1&amp;hide_landing_page_details=1"
+        ></div>
+        <noscript>
+          <p class="booking__fallback">
+            <a href="https://calendly.com/divinagiofficial/30min" target="_blank" rel="noopener">
+              Open the booking calendar on Calendly
+            </a>
+          </p>
+        </noscript>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -376,6 +403,7 @@
   </div>
 </footer>
 
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <script src="script.js"></script>
 </body>
 </html>

@@ -600,11 +600,17 @@ p:last-child { margin-bottom: 0; }
 
 .contact__grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(32px, 5vw, 70px);
-  align-items: center;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: start;
 }
-.contact .btn { margin-top: 2.2rem; }
+
+.contact__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 2.2rem;
+}
 
 .contact__list {
   list-style: none;
@@ -641,6 +647,65 @@ p:last-child { margin-bottom: 0; }
   word-break: break-word;
 }
 .contact__list a:hover { color: var(--violet); border-color: var(--violet); }
+
+/* ---------- Booking (Calendly) ---------- */
+
+.booking__head { margin-bottom: 20px; }
+.booking__head h3 {
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  margin-bottom: 10px;
+}
+.booking__head p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 46ch;
+}
+
+.booking__frame {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.95);
+}
+
+/* Violet hairline along the top so the white panel reads as part of the page */
+.booking__frame::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--violet), var(--champagne));
+  z-index: 2;
+}
+
+.calendly-inline-widget {
+  position: relative;
+  min-width: 280px;
+  width: 100%;
+  height: 700px;
+}
+
+/* Placeholder while the third-party script loads */
+.calendly-inline-widget:empty::after {
+  content: "Loading the booking calendar\2026";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #6b6580;
+  font-size: 0.9rem;
+}
+
+.booking__fallback {
+  margin: 0;
+  padding: 28px 24px;
+  text-align: center;
+  color: #3d3752;
+  font-size: 0.95rem;
+}
+.booking__fallback a { color: var(--violet-deep); }
 
 /* ---------- Footer ---------- */
 
@@ -696,6 +761,10 @@ p:last-child { margin-bottom: 0; }
 
   .about__facts { grid-template-columns: 1fr; }
   .contact__list li { flex-direction: column; gap: 4px; }
+
+  /* Calendly stacks its columns on narrow screens, so it needs more height */
+  .calendly-inline-widget { height: 1000px; }
+  .contact__cta .btn { flex: 1 1 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
