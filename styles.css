@@ -789,39 +789,6 @@ p:last-child { margin-bottom: 0; }
   height: auto;
 }
 
-.quote__author {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 2.6rem;
-  padding-top: 2.2rem;
-  border-top: 1px solid var(--line-soft);
-}
-.quote__author img {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid var(--line);
-}
-
-.quote__who {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  line-height: 1.35;
-}
-.quote__who strong {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 1.05rem;
-}
-.quote__who span {
-  font-size: 0.83rem;
-  color: var(--muted-2);
-}
-
 /* ---------- Timeline ---------- */
 
 .timeline {
