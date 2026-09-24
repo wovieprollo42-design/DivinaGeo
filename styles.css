@@ -358,12 +358,15 @@ p:last-child { margin-bottom: 0; }
 
 .about__portrait {
   position: relative;
-  margin: 2.4rem 0 0;
-  max-width: 400px;
+  margin: 0;
+  width: 100%;
 }
 
+/* Ratio lives on the frame, not the image, so the crop holds whatever
+   the source file happens to be. */
 .portrait__frame {
   position: relative;
+  aspect-ratio: 4 / 5;
   border-radius: 22px;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -377,9 +380,17 @@ p:last-child { margin-bottom: 0; }
   background: linear-gradient(to top, rgba(8, 7, 13, 0.62) 2%, transparent 42%);
   pointer-events: none;
 }
-.portrait__frame img {
+/* picture is inline by default, so height:100% on the img would have
+   nothing to resolve against */
+.portrait__frame picture {
+  display: block;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
+}
+.portrait__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center 18%;
 }
@@ -395,8 +406,8 @@ p:last-child { margin-bottom: 0; }
   padding: 14px 18px;
   border-radius: 14px;
   border: 1px solid var(--line);
-  background: rgba(13, 11, 22, 0.82);
-  backdrop-filter: blur(10px);
+  /* Opaque enough to read on its own; blur is a bonus, not the contrast */
+  background: rgba(11, 9, 19, 0.94);
 }
 .portrait__label {
   font-size: 0.68rem;
@@ -418,12 +429,15 @@ p:last-child { margin-bottom: 0; }
 
 /* ---------- About ---------- */
 
+/* Centred, so a short column does not leave a void beside a tall one */
 .about {
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: clamp(28px, 5vw, 76px);
-  align-items: start;
+  grid-template-columns: 0.78fr 1.22fr;
+  gap: clamp(28px, 5vw, 68px);
+  align-items: center;
 }
+
+.about__body h2 { margin-bottom: 1.5rem; }
 .about__body p { color: var(--muted); font-size: 1.02rem; }
 .about__sign {
   color: var(--text);
@@ -1092,7 +1106,7 @@ p:last-child { margin-bottom: 0; }
   .nav__links a { font-size: 0.88rem; }
 
   .about { grid-template-columns: 1fr; }
-  .about__portrait { max-width: 460px; }
+  .about__portrait { max-width: 440px; margin-inline: auto; }
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .clients__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .projects { grid-template-columns: 1fr; }
