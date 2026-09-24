@@ -719,6 +719,24 @@ p:last-child { margin-bottom: 0; }
   margin-bottom: 3px;
 }
 
+.project__quote {
+  margin: 1.2rem 0 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+.project__quote span {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--muted-2);
+}
+
 .project__tools {
   display: flex;
   flex-wrap: wrap;
