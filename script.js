@@ -48,6 +48,38 @@
     });
   });
 
+
+  /* ---- Theme toggle ----
+     The attribute is already set by the inline script in <head>. This only
+     flips it, relabels the button, and remembers the choice. Nothing is
+     written to storage until the visitor actually picks a side, so an OS
+     preference keeps following the OS. */
+  var themeBtn = document.getElementById("themeToggle");
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+  var root = document.documentElement;
+
+  var describeTheme = function (theme) {
+    if (themeBtn) {
+      themeBtn.setAttribute(
+        "aria-label",
+        theme === "light" ? "Switch to dark mode" : "Switch to light mode"
+      );
+    }
+    if (themeMeta) {
+      themeMeta.setAttribute("content", theme === "light" ? "#faf9fc" : "#07060c");
+    }
+  };
+
+  describeTheme(root.getAttribute("data-theme"));
+
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+      root.setAttribute("data-theme", next);
+      describeTheme(next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  }
   /* ---- Sticky nav ----
      The bar follows you down the page, but it stops at Contact: the
      booking calendar needs its full height and the bar was sitting on

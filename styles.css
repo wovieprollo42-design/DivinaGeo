@@ -20,9 +20,53 @@
 
   --shell: 1180px;
   --radius: 16px;
+  --logo-invert: 0;      /* client logos ship as white silhouettes */
+  --glow: 0.38;
+
+  --tint: rgba(255, 255, 255, 0.03);
+  --tint-2: rgba(255, 255, 255, 0.05);
+  --nav-bg: rgba(8, 7, 13, 0.72);
+  --nav-bg-stuck: rgba(8, 7, 13, 0.92);
+  --overlay: rgba(8, 7, 13, 0.62);
+  --glass: rgba(17, 14, 28, 0.7);
+  --btn-text: #0a0812;
+  --dim: #7d7691;
 
   --font-display: "Newsreader", Georgia, "Times New Roman", serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ---------- Light theme ----------
+   Violet and champagne both darken here: the dark-mode values are tuned
+   for a near-black page and would fail contrast on a near-white one. */
+:root[data-theme="light"] {
+  --ink: #faf9fc;
+  --ink-2: #f3f1f8;
+  --panel: #ffffff;
+  --line: rgba(24, 16, 48, 0.14);
+  --line-soft: rgba(24, 16, 48, 0.08);
+
+  --text: #14101f;
+  --muted: #55506a;      /* 7.3:1 on --ink */
+  --muted-2: #6b6480;    /* 5.4:1 on --ink */
+
+  --violet: #6b3fd4;     /* 6.1:1 on --ink */
+  --violet-deep: #4a2a99;
+  --champagne: #8a6520;  /* 5.0:1 on --ink */
+
+  --logo-invert: 1;      /* flip the white silhouettes so they read */
+  --glow: 0.13;
+
+  --tint: rgba(24, 16, 48, 0.04);
+  --tint-2: rgba(24, 16, 48, 0.07);
+  --nav-bg: rgba(250, 249, 252, 0.78);
+  --nav-bg-stuck: rgba(250, 249, 252, 0.94);
+  --overlay: rgba(20, 16, 31, 0.55);
+  --glass: rgba(255, 255, 255, 0.82);
+  --btn-text: #ffffff;
+  --dim: #7a7392;
+
+  color-scheme: light;
 }
 
 *,
@@ -45,6 +89,7 @@ body {
   letter-spacing: -0.005em;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 img { max-width: 100%; display: block; }
@@ -55,7 +100,7 @@ a { color: inherit; }
   left: -9999px;
   top: 0;
   background: var(--violet);
-  color: #0a0812;
+  color: var(--btn-text);
   padding: 10px 16px;
   z-index: 200;
   border-radius: 0 0 10px 0;
@@ -127,7 +172,7 @@ p:last-child { margin-bottom: 0; }
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--violet);
-  color: #0a0812;
+  color: var(--btn-text);
   font-weight: 600;
   font-size: 0.94rem;
   text-decoration: none;
@@ -148,7 +193,7 @@ p:last-child { margin-bottom: 0; }
   box-shadow: none;
 }
 .btn--ghost:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--tint-2);
   border-color: rgba(169, 133, 255, 0.5);
   box-shadow: none;
 }
@@ -167,7 +212,7 @@ p:last-child { margin-bottom: 0; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(8, 7, 13, 0.72);
+  background: var(--nav-bg);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid transparent;
   transition: border-color 0.25s ease, background 0.25s ease, transform 0.3s ease;
@@ -181,7 +226,7 @@ p:last-child { margin-bottom: 0; }
 }
 .nav.is-stuck {
   border-bottom-color: var(--line-soft);
-  background: rgba(8, 7, 13, 0.92);
+  background: var(--nav-bg-stuck);
 }
 
 .nav__inner {
@@ -213,6 +258,33 @@ p:last-child { margin-bottom: 0; }
   transition: color 0.18s ease;
 }
 .nav__links a:hover { color: var(--text); }
+
+/* Icon only, no label, sitting beside the Let's Talk button */
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--tint);
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+.theme-toggle:hover {
+  color: var(--text);
+  border-color: rgba(169, 133, 255, 0.45);
+  background: var(--tint-2);
+}
+.theme-toggle svg { width: 17px; height: 17px; }
+
+/* Show the icon for the theme the click will take you to */
+.theme-toggle__moon { display: none; }
+:root[data-theme="light"] .theme-toggle__sun { display: none; }
+:root[data-theme="light"] .theme-toggle__moon { display: block; }
 
 .nav__toggle {
   display: none;
@@ -266,7 +338,7 @@ p:last-child { margin-bottom: 0; }
   inset: -40% 0 auto -10%;
   height: 780px;
   background:
-    radial-gradient(52% 46% at 22% 32%, rgba(107, 63, 212, 0.38), transparent 68%),
+    radial-gradient(52% 46% at 22% 32%, rgba(107, 63, 212, var(--glow)), transparent 68%),
     radial-gradient(38% 38% at 78% 12%, rgba(231, 198, 144, 0.1), transparent 70%);
   filter: blur(4px);
   pointer-events: none;
@@ -290,7 +362,7 @@ p:last-child { margin-bottom: 0; }
   padding: 7px 16px 7px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--tint);
   font-size: 0.8rem;
   color: var(--muted);
   margin: 0 0 1.6rem;
@@ -370,14 +442,14 @@ p:last-child { margin-bottom: 0; }
   border-radius: 22px;
   overflow: hidden;
   border: 1px solid var(--line);
-  background: linear-gradient(160deg, rgba(169, 133, 255, 0.16), rgba(8, 7, 13, 0.4));
+  background: linear-gradient(160deg, rgba(169, 133, 255, 0.16), var(--ink-2));
   box-shadow: 0 40px 90px -46px rgba(0, 0, 0, 0.95);
 }
 .portrait__frame::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(8, 7, 13, 0.62) 2%, transparent 42%);
+  background: linear-gradient(to top, var(--overlay) 2%, transparent 42%);
   pointer-events: none;
 }
 /* picture is inline by default, so height:100% on the img would have
@@ -407,7 +479,7 @@ p:last-child { margin-bottom: 0; }
   border-radius: 14px;
   border: 1px solid var(--line);
   /* Opaque enough to read on its own; blur is a bonus, not the contrast */
-  background: rgba(11, 9, 19, 0.94);
+  background: var(--nav-bg-stuck);
 }
 .portrait__label {
   font-size: 0.68rem;
@@ -568,6 +640,7 @@ p:last-child { margin-bottom: 0; }
   max-width: 100%;
   object-fit: contain;
   opacity: 0.6;
+  filter: invert(var(--logo-invert));  /* white artwork, flipped in light mode */
   transition: opacity 0.25s ease;
 }
 .clients__grid > li:hover img { opacity: 1; }
@@ -784,7 +857,7 @@ p:last-child { margin-bottom: 0; }
   padding: 6px 13px;
   border: 1px solid var(--line-soft);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--tint);
   color: var(--muted-2);
   font-size: 0.78rem;
 }
@@ -894,13 +967,14 @@ p:last-child { margin-bottom: 0; }
   height: 44px;
   border-radius: 10px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--tint);
 }
 .job__logo img {
   width: 46px;
   height: 26px;
   object-fit: contain;
   opacity: 0.9;
+  filter: invert(var(--logo-invert));
 }
 /* Stand-in for a company with no logo on file */
 .job__mono {
@@ -999,7 +1073,7 @@ p:last-child { margin-bottom: 0; }
   padding: 0;
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
-  background: rgba(17, 14, 28, 0.7);
+  background: var(--glass);
   overflow: hidden;
 }
 .contact__list li {
@@ -1102,7 +1176,7 @@ p:last-child { margin-bottom: 0; }
   font-size: 0.84rem;
   color: var(--muted-2);
 }
-.footer__note--dim { color: #7d7691; } /* 4.63:1 on --ink */
+.footer__note--dim { color: var(--dim); } /* 4.63:1 on --ink */
 
 /* ---------- Reveal ---------- */
 
@@ -1178,6 +1252,7 @@ p:last-child { margin-bottom: 0; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .marquee__track { animation: none; }
+  body { transition: none; }
   /* Snap rather than slide. The bar must still get out of the way, so
      .nav--away keeps its transform. */
   .nav { transition: none; }
